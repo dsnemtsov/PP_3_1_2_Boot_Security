@@ -1,36 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>User page</title>
+    <title>Admin panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:insert="navbar :: navbar">  </div>
-
-<ul class="nav nav-pills flex-column" style="max-width: 150px; margin-top: 15px">
+<ul th:fragment="adminPanel" class="nav nav-pills flex-column" style="margin-top: 15px">
     <div sec:authorize="hasRole('ROLE_ADMIN')">
-    <li class="nav-item" >
-        <a class="nav-link" href="/admin">Admin</a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/admin" style="max-width: 150px">Admin</a>
+        </li>
     </div>
     <li class="nav-item">
-        <a class="nav-link active" href="/user">User</a>
+        <a class="nav-link" href="/user">User</a>
     </li>
 </ul>
-
-<h2>
-    My information
-</h2>
-<span sec:authentication="principal.username">username</span>
-<br>
-<span sec:authentication="principal.email">email</span>
-<br>
-<span sec:authentication="principal.authorities">Roles</span>
-
 </body>
 </html>

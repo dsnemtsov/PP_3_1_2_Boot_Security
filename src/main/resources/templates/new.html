@@ -1,40 +1,73 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Create user</title>
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 
-<form th:method="POST" th:action="@{/user}" >
-    <label for="userName">Enter name: </label>
-    <input type="text" th:field="*{user.userName}" id="userName">
+<div class="container-fluid vh-100 content-left">
+    <div class="row">
+        <div class="col vh-100 width-150 padding-zero">
+            <div th:insert="adminPanel :: adminPanel"></div>
+        </div>
+        <div class="col vh-100 background-blanchedalmond">
+            <h2>Admin panel</h2>
 
-    <br/>
-    <br/>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/new">New User</a>
+                </li>
+            </ul>
+            <div class="container-fluid border rounded">
+                <div class="row padding-left-10 background-antiquewhite">
+                    <h3>Add new user</h3>
+                </div>
 
-    <label for="password">Enter password: </label>
-    <input type="text" th:field="*{user.password}" id="password">
+                <div class="row background-white content-center text-center">
+                    <form th:method="POST" th:action="@{/user}" class="padding-top-bottom-10">
 
-    <br/>
-    <br/>
+                        <div class="padding-bottom-10">
+                            <label class="font-weight-bold" for="userName">Username</label>
+                            <input class="form-control" type="text" th:field="*{user.userName}" id="userName">
+                        </div>
 
-    <label for="email">Enter email: </label>
-    <input type="text" th:field="*{user.email}" id="email">
+                        <div class="padding-bottom-10">
+                            <label class="font-weight-bold" for="password">Password</label>
+                            <input class="form-control" type="password" th:field="*{user.password}" id="password">
+                        </div>
 
-    <br/>
-    <br/>
+                        <div class="padding-bottom-10">
+                            <label class="font-weight-bold" for="email">Email</label>
+                            <input class="form-control" type="text" th:field="*{user.email}" id="email">
+                        </div>
 
-    <label th:for="confirm1">Admin</label>
-    <input type="checkbox" name="confirm1" th:checked="*{confirm1}" />
+                        <div class="padding-bottom-10">
+                            <label class="font-weight-bold" for="email">Role</label>
+                            <select class="custom-select" name="role">
+                                <option th:value="'ADMIN'" th:text="'ADMIN'">ADMIN</option>
+                                <option th:value="'USER'" th:text="'USER'">USER</option>
+                            </select>
+                        </div>
 
-    <br/>
-    <br/>
+                        <button type="submit" class="btn btn-success">Add new user</button>
 
-    <input type="submit" value="Create">
-
-</form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

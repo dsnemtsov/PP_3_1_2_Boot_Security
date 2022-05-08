@@ -1,23 +1,76 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-<h2>List of users</h2>
-<div th:each="user : ${users}">
-    <a th:href="@{/user/{id}(id = ${user.getId()})}" th:text="${user.getUserName()}">user</a>
+<div th:insert="navbar :: navbar"></div>
+
+<div class="container-fluid vh-100 content-left">
+    <div class="row">
+        <div class="col vh-100 width-150 padding-zero">
+            <div th:insert="adminPanel :: adminPanel"></div>
+        </div>
+        <div class="col vh-100 background-blanchedalmond">
+            <h2>Admin panel</h2>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">New User</a>
+                </li>
+            </ul>
+            <div class="container-fluid border rounded" >
+                <div class="row padding-left-10 background-antiquewhite">
+                    <h3>All users</h3>
+                </div>
+
+                <div class="row background-white">
+                    <table id="example" class="table table-striped margin-zero">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}">Id</td>
+                            <td th:text="${user.userName}">Username</td>
+                            <td th:text="${user.email}">Email</td>
+                            <td th:text="${user.getRolesNames()}">Role</td>
+                            <td>
+                                <form th:method="GET" th:action="@{/user/{id}/edit(id = ${user.getId()})}">
+                                    <button type="submit" class="btn btn-info">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:method="DELETE" th:action="@{/{id}(id = ${user.getId()})}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<br/>
-<br/>
-<br/>
-<a href="/new">Create new user</a>
-<br/>
-<br/>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
-</form>
+</div>
 </body>
 </html>

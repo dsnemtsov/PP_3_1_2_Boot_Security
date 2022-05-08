@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
-<body>
-<form th:action="@{/login}" method="post">
+<body class="p-3 mb-2 bg-light">
+<form th:action="@{/login}" method="post" class="login">
+    <h2 class="font-weight-bold text-left">Please sign in</h2>
+
     <div th:if="${param.error}">
-        <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        <p class="text-danger text-left">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
     </div>
 
     <input type="text" class="form-control" name="username"
            placeholder="Username"/>
 
-    <br/>
-    <br/>
-
     <input type="password" class="form-control" name="password"
            placeholder="Password"/>
 
-    <br/>
-    <br/>
-
-    <input type="submit" value="Login">
+    <button type="submit" class="btn btn-primary btn-block margin-top-10">Sign in</button>
 </form>
+
 </body>
 </html>

@@ -49,8 +49,7 @@ public class UserController {
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        String confirm1 = null;
-        model.addAttribute("confirm1", confirm1);
+        model.addAttribute("role", "");
         return "new";
     }
 
@@ -72,8 +71,8 @@ public class UserController {
 
     @PostMapping("/user")
     public String create(@ModelAttribute("user") User user,
-                         @ModelAttribute("confirm1") String confirm1) {
-        if (confirm1.equals("on")) {
+                         @ModelAttribute("role") String role) {
+        if (role.equals("ADMIN")) {
             user.setRoles(Set.of(roleService.findByName("ROLE_ADMIN"),
                     roleService.findByName("ROLE_USER")));
         } else {
@@ -88,22 +87,21 @@ public class UserController {
     @GetMapping("/user/{id}/edit")
     public String edit(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.findById(id));
-        String confirm1 = null;
-        model.addAttribute("confirm1", confirm1);
+        model.addAttribute("role", "");
         return "/edit";
     }
 
     @PatchMapping("user/{id}")
-    public String update(@ModelAttribute("user") User user,
-                         @ModelAttribute("confirm1") String confirm1,
+    public String update(@ModelAttribute("user") User updatedUser,
+                         @ModelAttribute("role") String role,
                          @PathVariable("id") long id) {
-        if (confirm1.equals("on")) {
-            user.setRoles(Set.of(roleService.findByName("ROLE_ADMIN"),
+        if (role.equals("ADMIN")) {
+            updatedUser.setRoles(Set.of(roleService.findByName("ROLE_ADMIN"),
                     roleService.findByName("ROLE_USER")));
         } else {
-            user.setRoles(Set.of(roleService.findByName("ROLE_USER")));
+            updatedUser.setRoles(Set.of(roleService.findByName("ROLE_USER")));
         }
-        userService.update(id, user);
+        userService.update(id, updatedUser);
         return "redirect:/admin";
     }
 

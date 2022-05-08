@@ -3,10 +3,8 @@ package ru.kata.spring.boot_security.demo.service;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.exception.NotFoundException;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repo.UserRepo;
@@ -49,15 +47,10 @@ public class UserServiceImpl implements UserService {
         User user = findById(id);
         user.setUserName(updatedUser.getUserName());
         user.setEmail(updatedUser.getEmail());
-        if (updatedUser.getRoles()
-                .stream()
-                .map(Role::getName)
-                .anyMatch(name -> name.equals("ROLE_ADMIN"))) {
-            user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
-        } else {
-            user.getRoles().clear();
-            user.getRoles().add(roleService.findByName("ROLE_USER"));
-        }
+
+        user.getRoles().clear();
+
+        updatedUser.getRoles().forEach(role -> user.getRoles().add(roleService.findByName(role.getName())));
 
         userRepo.save(user);
     }

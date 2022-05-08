@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -70,5 +72,15 @@ public class SecurityUser implements UserDetails {
 
     public String getEmail() {
         return this.user.getEmail();
+    }
+
+    public String getRoles() {
+        return this.user
+                .getRoles()
+                .stream()
+                .map(Role::getName)
+                .map(name -> name.substring(5))
+                .sorted()
+                .collect(Collectors.joining(" "));
     }
 }

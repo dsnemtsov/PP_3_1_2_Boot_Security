@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-dark bg-dark">
+    <div class="text-white">
+        <span class="font-weight-bold" sec:authentication="principal.email">email</span>
+        <span>with roles:</span>
+        <span sec:authentication="principal.roles">Roles</span>
+    </div>
+
+    <a class="text-gray text-decoration-none logout" th:href="@{/logout}">Logout</a>
+</nav>
+</body>
+</html>

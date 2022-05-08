@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,4 +56,13 @@ public class User {
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private Set<Role> roles = new HashSet<>();
+
+    public String getRolesNames(){
+        return roles
+                .stream()
+                .map(Role::getName)
+                .map(name -> name.substring(5))
+                .sorted()
+                .collect(Collectors.joining(" "));
+    }
 }
