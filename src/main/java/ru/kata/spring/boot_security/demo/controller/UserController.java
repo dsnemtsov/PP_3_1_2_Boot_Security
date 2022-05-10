@@ -56,6 +56,7 @@ public class UserController {
     @GetMapping("/admin")
     public String adminPage(Model model) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("role", "");
         return "admin";
     }
 
@@ -92,7 +93,7 @@ public class UserController {
     }
 
     @PatchMapping("user/{id}")
-    public String update(@ModelAttribute("user") User updatedUser,
+    public String update(User updatedUser,
                          @ModelAttribute("role") String role,
                          @PathVariable("id") long id) {
         if (role.equals("ADMIN")) {

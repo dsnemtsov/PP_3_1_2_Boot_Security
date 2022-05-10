@@ -29,7 +29,15 @@
 
 .width-150 {
     max-width: 150px;
+}
 
+.width-66 {
+    max-width: 66px;
+}
+
+.width-250 {
+    max-width: 250px;
+    margin: 0;
 }
 
 .padding-zero {
@@ -51,6 +59,10 @@
 
 .margin-zero {
     margin: 0;
+}
+
+.margin-auto {
+    margin: auto;
 }
 
 .background-blanchedalmond {
