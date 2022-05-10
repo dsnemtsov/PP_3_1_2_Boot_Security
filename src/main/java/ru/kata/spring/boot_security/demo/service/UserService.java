@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.service;
 
 import java.util.List;
 import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.model.UserModel;
 
 public interface UserService {
 
@@ -11,7 +12,7 @@ public interface UserService {
 
     User findByUserName(String userName);
 
-    void save(User user);
+    User save(UserModel userModel);
 
     void update(long id, User updatedUser);
 

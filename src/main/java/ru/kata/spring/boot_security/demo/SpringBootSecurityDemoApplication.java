@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo;
 
-import java.util.List;
-import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.entity.Role;
-import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.model.UserModel;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -33,24 +31,25 @@ public class SpringBootSecurityDemoApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		Role adminRole = new Role("ROLE_ADMIN");
 		Role userRole = new Role("ROLE_USER");
 
 		roleService.save(adminRole);
 		roleService.save(userRole);
 
-		User admin = new User();
+		UserModel admin = new UserModel();
 		admin.setUserName("admin");
 		admin.setEmail("admin@mail.ru");
 		admin.setPassword(passwordEncoder().encode("password"));
-		admin.setRoles(Set.of(adminRole, userRole));
+		admin.getRoles().add(adminRole);
+		admin.getRoles().add(userRole);
 
-		User user = new User();
+		UserModel user = new UserModel();
 		user.setUserName("user");
 		user.setEmail("user@mail.ru");
 		user.setPassword(passwordEncoder().encode("password"));
-		user.setRoles(Set.of(userRole));
+		user.getRoles().add(userRole);
 
 		userService.save(user);
 		userService.save(admin);

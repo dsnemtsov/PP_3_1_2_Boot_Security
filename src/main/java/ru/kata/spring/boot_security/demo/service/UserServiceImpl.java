@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.exception.NotFoundException;
 import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.model.UserModel;
 import ru.kata.spring.boot_security.demo.repo.UserRepo;
 
 @AllArgsConstructor
@@ -32,13 +33,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserName(String userName) {
         return userRepo.findByUserName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException("Email" + userName + " not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Username" + userName + " not found"));
     }
 
     @Transactional
     @Override
-    public void save(User user) {
-        userRepo.save(user);
+    public User save(UserModel userModel) {
+        User user = new User();
+
+        user.setUserName(userModel.getUserName());
+        user.setPassword(userModel.getPassword());
+        user.setEmail(userModel.getEmail());
+        userModel.getRoles().forEach(role -> user.getRoles().add(roleService.findByName(role.getName())));
+
+        return userRepo.save(user);
     }
 
     @Transactional

@@ -1,11 +1,9 @@
 package ru.kata.spring.boot_security.demo.entity;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,6 +43,7 @@ public class User {
     @Email(message="{errors.invalid_email}")
     private String email;
 
+    @JsonIgnore
     @Column(nullable=false)
     @NotEmpty
     @Size(min=4)
