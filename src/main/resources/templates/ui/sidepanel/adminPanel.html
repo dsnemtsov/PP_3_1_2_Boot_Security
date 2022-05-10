@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<html>
 <head>
     <meta charset="UTF-8">
     <title>Admin panel</title>
@@ -12,12 +12,12 @@
           crossorigin="anonymous">
 </head>
 <body>
-<ul th:fragment="adminPanel" class="nav nav-pills flex-column" style="margin-top: 15px">
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <li class="nav-item">
-            <a class="nav-link active" href="/admin" style="max-width: 150px">Admin</a>
-        </li>
-    </div>
+<ul th:fragment="adminPanel" class="nav nav-pills flex-column margin-top-10">
+
+    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+        <a class="nav-link active" href="/admin">Admin</a>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="/user">User</a>
     </li>

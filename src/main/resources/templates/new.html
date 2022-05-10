@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin panel</title>
@@ -13,12 +12,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div th:insert="navbar :: navbar"></div>
+<div th:insert="/ui/navbar/navbar :: navbar"></div>
 
 <div class="container-fluid vh-100 content-left">
     <div class="row">
         <div class="col vh-100 width-150 padding-zero">
-            <div th:insert="adminPanel :: adminPanel"></div>
+            <div th:insert="/ui/sidepanel/adminPanel :: adminPanel"></div>
         </div>
         <div class="col vh-100 background-blanchedalmond">
             <h2>Admin panel</h2>
@@ -36,36 +35,7 @@
                     <h3>Add new user</h3>
                 </div>
 
-                <div class="row background-white content-center text-center">
-                    <form th:method="POST" th:action="@{/user}" class="padding-top-bottom-10">
-
-                        <div class="padding-bottom-10">
-                            <label class="font-weight-bold" for="userName">Username</label>
-                            <input class="form-control" type="text" th:field="*{user.userName}" id="userName">
-                        </div>
-
-                        <div class="padding-bottom-10">
-                            <label class="font-weight-bold" for="password">Password</label>
-                            <input class="form-control" type="password" th:field="*{user.password}" id="password">
-                        </div>
-
-                        <div class="padding-bottom-10">
-                            <label class="font-weight-bold" for="email">Email</label>
-                            <input class="form-control" type="text" th:field="*{user.email}" id="email">
-                        </div>
-
-                        <div class="padding-bottom-10">
-                            <label class="font-weight-bold" for="role">Role</label>
-                            <select class="custom-select" name="role" id="role">
-                                <option th:value="'ADMIN'" th:text="'ADMIN'">ADMIN</option>
-                                <option th:value="'USER'" th:text="'USER'">USER</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Add new user</button>
-
-                    </form>
-                </div>
+                <div th:insert="/ui/form/new :: newuser"></div>
             </div>
         </div>
     </div>

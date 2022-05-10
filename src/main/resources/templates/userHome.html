@@ -1,36 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>User page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div th:insert="navbar :: navbar">  </div>
+<div th:insert="/ui/navbar/navbar :: navbar"></div>
 
-<ul class="nav nav-pills flex-column" style="max-width: 150px; margin-top: 15px">
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-    <li class="nav-item" >
-        <a class="nav-link" href="/admin">Admin</a>
-    </li>
+<div class="container-fluid vh-100 content-left">
+    <div class="row">
+
+        <div class="col vh-100 width-150 padding-zero">
+            <div th:insert="/ui/sidepanel/userPanel :: userPanel"></div>
+        </div>
+
+        <div class="col vh-100 background-blanchedalmond">
+            <h2>User information-page</h2>
+
+            <div class="container-fluid border rounded">
+                <div class="row padding-left-10 background-antiquewhite">
+                    <h3>About user</h3>
+                </div>
+                <div class="row background-white">
+                    <table id="example" class="table table-striped margin-zero">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td sec:authentication="principal.id">Id</td>
+                            <td sec:authentication="principal.username">username</td>
+                            <td sec:authentication="principal.email">email</td>
+                            <td sec:authentication="principal.roles">Roles</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <li class="nav-item">
-        <a class="nav-link active" href="/user">User</a>
-    </li>
-</ul>
-
-<h2>
-    My information
-</h2>
-<span sec:authentication="principal.username">username</span>
-<br>
-<span sec:authentication="principal.email">email</span>
-<br>
-<span sec:authentication="principal.authorities">Roles</span>
+</div>
 
 </body>
 </html>

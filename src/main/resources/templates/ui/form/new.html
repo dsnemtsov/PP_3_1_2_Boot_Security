@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:fragment="newuser" class="row background-white content-center text-center">
+    <form th:method="POST" th:action="@{/user}" class="padding-top-bottom-10">
+
+        <div class="padding-bottom-10">
+            <label class="font-weight-bold" for="userName">Username</label>
+            <input class="form-control" type="text" th:field="*{user.userName}" id="userName">
+        </div>
+
+        <div class="padding-bottom-10">
+            <label class="font-weight-bold" for="password">Password</label>
+            <input class="form-control" type="password" th:field="*{user.password}" id="password">
+        </div>
+
+        <div class="padding-bottom-10">
+            <label class="font-weight-bold" for="email">Email</label>
+            <input class="form-control" type="text" th:field="*{user.email}" id="email">
+        </div>
+
+        <div class="padding-bottom-10">
+            <label class="font-weight-bold" for="role">Role</label>
+            <select class="custom-select" name="role" id="role">
+                <option th:value="'ADMIN'" th:text="'ADMIN'">ADMIN</option>
+                <option th:value="'USER'" th:text="'USER'">USER</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add new user</button>
+
+    </form>
+</div>
+</body>
+</html>
